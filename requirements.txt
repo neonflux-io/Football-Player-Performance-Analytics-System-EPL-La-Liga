@@ -1,31 +1,30 @@
-# ─────────────────────────────────────────────────────────────────────────────
 # Football Player Performance Analytics System
-# requirements.txt – pin major versions for reproducibility
-# ─────────────────────────────────────────────────────────────────────────────
-from pydantic_settings import BaseSettings
-# ── Data loading ──────────────────────────────────────────────────────────────
-statsbombpy>=1.17.0          # StatsBomb open-data Python wrapper
-requests>=2.31.0             # HTTP requests (used by loader)
 
-# ── Data manipulation ─────────────────────────────────────────────────────────
+# Data loading
+statsbombpy>=1.17.0
+requests>=2.31.0
+
+# Data manipulation
 pandas>=2.1.0
 numpy>=1.26.0
 
-# ── Visualisation ─────────────────────────────────────────────────────────────
+# Visualization
 matplotlib>=3.8.0
-mplsoccer>=1.2.4             # Pitch maps & radar charts (Fotmob-style)
-highlight-text>=0.1.2        # Annotated text on matplotlib figures
-Pillow>=10.1.0               # Image utilities
+mplsoccer>=1.2.4
+highlight-text>=0.1.2
+Pillow>=10.1.0
 
-# ── Dashboard ─────────────────────────────────────────────────────────────────
+# Dashboard
 streamlit>=1.31.0
 
-# ── Utilities ─────────────────────────────────────────────────────────────────
+# Utilities
 python-dotenv>=1.0.0
 pydantic>=2.5.0
 pydantic-settings>=2.0.0
-loguru>=0.7.2>=1.11.0                # Percentile / statistical helpers
-scikit-learn>=1.4.0          # Clustering for positional analysis (Phase 4)
+loguru>=0.7.2
+tqdm>=4.66.0
+scipy>=1.11.0
+scikit-learn>=1.4.0
 
-# ── Development / testing ─────────────────────────────────────────────────────
+# Development
 pytest>=7.4.0
