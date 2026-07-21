@@ -1,18 +1,18 @@
-🏆 Football Player Performance Analytics System
+ Football Player Performance Analytics System
 
 An end-to-end football analytics platform built with Python,
 StatsBomb Open Data, Streamlit, Plotly and Machine Learning.
 
 Features
 ---------
-✓ Interactive Dashboard
-✓ Player Comparison
-✓ Team Performance
-✓ Tactical Analysis
-✓ Radar Charts
-✓ xG Analysis
-✓ Advanced Statistics
-✓ Data Pipeline
+ Interactive Dashboard
+ Player Comparison
+ Team Performance
+ Tactical Analysis
+ Radar Charts
+ xG Analysis
+ Advanced Statistics
+ Data Pipeline
 
 Tech Stack
 ----------
@@ -39,38 +39,13 @@ Visualization Layer
 Interactive Dashboard
 
 
-## Quick Start
-
-```bash
-pip install -r requirements.txt
-python main.py --demo
-streamlit run dashboards/app.py
-```
-
-## Run Tests (165 tests, fully offline)
-
-```bash
-pytest tests/ -v
-```
-
 ## Architecture
 
 ```
 StatsBombLoader → League/Team/Player → PerformanceAnalyzer → VisualisationFactory → Streamlit Dashboard
 ```
 
-## OOP Patterns Used
 
-| Pattern | Where |
-|---|---|
-| Abstract Base Class | Player → Outfielder, Goalkeeper |
-| Composition | League HAS Teams HAS Players |
-| Factory | create_player(), VisualisationFactory |
-| Facade | AdvancedAnalyzer wraps Phase 4 engines |
-| Singleton | cfg config; AppState session manager |
-| Strategy | PositionalClusterer(algorithm=...) |
-| Template Method | BaseChart infrastructure |
-| Dependency Injection | PerformanceAnalyzer(league) |
 
 ## Data
 
