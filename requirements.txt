@@ -1,0 +1,32 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Football Player Performance Analytics System
+# requirements.txt – pin major versions for reproducibility
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Data loading ──────────────────────────────────────────────────────────────
+statsbombpy>=1.17.0          # StatsBomb open-data Python wrapper
+requests>=2.31.0             # HTTP requests (used by loader)
+
+# ── Data manipulation ─────────────────────────────────────────────────────────
+pandas>=2.1.0
+numpy>=1.26.0
+
+# ── Visualisation ─────────────────────────────────────────────────────────────
+matplotlib>=3.8.0
+mplsoccer>=1.2.4             # Pitch maps & radar charts (Fotmob-style)
+highlight-text>=0.1.2        # Annotated text on matplotlib figures
+Pillow>=10.1.0               # Image utilities
+
+# ── Dashboard ─────────────────────────────────────────────────────────────────
+streamlit>=1.31.0
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dotenv>=1.0.0         # .env config loading
+pydantic>=2.5.0              # Runtime data validation for config
+loguru>=0.7.2                # Beautiful structured logging
+tqdm>=4.66.0                 # Progress bars for batch loading
+scipy>=1.11.0                # Percentile / statistical helpers
+scikit-learn>=1.4.0          # Clustering for positional analysis (Phase 4)
+
+# ── Development / testing ─────────────────────────────────────────────────────
+pytest>=7.4.0
