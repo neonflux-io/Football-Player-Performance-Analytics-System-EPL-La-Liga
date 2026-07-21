@@ -9,11 +9,11 @@ Launch with:
 
 Pages
 ──────
-    🏠 Overview          – League-wide top scorers, team selector
-    👤 Player Profile    – Individual radar, career trend, stat table
-    ⚔️  Comparison        – Head-to-head radar + delta table
-    🔬 Advanced Analysis – Injury impact & clustering archetypes
-    📋 Team Report       – Squad depth, goal contributions
+     Overview          – League-wide top scorers, team selector
+     Player Profile    – Individual radar, career trend, stat table
+     Comparison        – Head-to-head radar + delta table
+     Advanced Analysis – Injury impact & clustering archetypes
+    Team Report       – Squad depth, goal contributions
 
 Architecture
 ────────────
