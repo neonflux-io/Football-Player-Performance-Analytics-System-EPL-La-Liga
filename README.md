@@ -1,6 +1,43 @@
-# Football Player Performance Analytics System
+🏆 Football Player Performance Analytics System
 
-A modular, production-quality analytics framework for EPL and La Liga built on StatsBomb open data.
+An end-to-end football analytics platform built with Python,
+StatsBomb Open Data, Streamlit, Plotly and Machine Learning.
+
+Features
+---------
+✓ Interactive Dashboard
+✓ Player Comparison
+✓ Team Performance
+✓ Tactical Analysis
+✓ Radar Charts
+✓ xG Analysis
+✓ Advanced Statistics
+✓ Data Pipeline
+
+Tech Stack
+----------
+Python
+Pandas
+NumPy
+Plotly
+Streamlit
+Scikit-learn
+StatsBomb Open Data
+
+Architecture
+------------
+Data Source
+      ↓
+Data Loader
+      ↓
+Data Cleaning
+      ↓
+Analytics Engine
+      ↓
+Visualization Layer
+      ↓
+Interactive Dashboard
+
 
 ## Quick Start
 
