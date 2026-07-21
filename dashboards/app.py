@@ -1,6 +1,6 @@
 """
 dashboards/app.py
-─────────────────────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────────
 Football Player Performance Analytics System — Streamlit Dashboard
 
 Launch with:
@@ -26,7 +26,7 @@ OOP concept: the dashboard is a CONTROLLER — it reads user input,
 delegates to the model layer (analyzers), and passes results to the
 view layer (VisualisationFactory / components.py).  Zero analytics
 or rendering logic lives in this file itself.
-─────────────────────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────────
 """
 
 from __future__ import annotations
@@ -42,12 +42,12 @@ import streamlit as st
 # ── Page config (must be first Streamlit call) ────────────────────────────────
 st.set_page_config(
     page_title="Football Analytics",
-    page_icon="⚽",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# ── Project imports ───────────────────────────────────────────────────────────
+# ── Project imports ──────────────────────────────────────────────────────────
 from dashboards.components import (
     career_metrics_row,
     comparison_table,
@@ -66,7 +66,7 @@ def get_factory() -> VisualisationFactory:
     return VisualisationFactory()
 
 
-# ── Custom CSS (dark theme polish) ────────────────────────────────────────────
+# ── Custom CSS (dark theme polish) ───────────────────────────────────────────
 st.markdown("""
 <style>
     /* Dark background override */
@@ -107,9 +107,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────
 # SIDEBAR
-# ─────────────────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────
 state   = AppState()
 factory = get_factory()
 
@@ -117,13 +117,13 @@ data_ready = sidebar_data_loader(state)
 
 # Navigation
 st.sidebar.divider()
-st.sidebar.header("🗂️ Navigation")
+st.sidebar.header("Navigation")
 PAGE_OPTIONS = [
-    "🏠 Overview",
-    "👤 Player Profile",
-    "⚔️ Head-to-Head",
-    "🔬 Advanced Analysis",
-    "📋 Team Report",
+    "Overview",
+    "Player Profile",
+    "Head-to-Head",
+    "Advanced Analysis",
+    "Team Report",
 ]
 page = st.sidebar.radio(
     "Go to page",
@@ -140,11 +140,11 @@ st.sidebar.markdown(
 )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────
 # GATE: require data before showing any page
-# ─────────────────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────
 if not data_ready:
-    st.markdown("# ⚽ Football Player Performance Analytics")
+    st.markdown("# Football Player Performance Analytics")
     st.markdown("### Select a competition and season in the sidebar, then click **Load Data**.")
 
     col1, col2, col3 = st.columns(3)
@@ -168,14 +168,14 @@ if not data_ready:
     st.stop()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PAGE: 🏠 OVERVIEW
-# ─────────────────────────────────────────────────────────────────────────────
-if page == "🏠 Overview":
+# ────────────────────────────────────────────────────────────────
+# PAGE: OVERVIEW
+# ────────────────────────────────────────────────────────────────
+if page == "Overview":
     league   = state.league
     analyzer = state.analyzer
 
-    st.markdown(f"# ⚽ {league.name} Overview")
+    st.markdown(f"# {league.name} Overview")
     st.markdown(f"Season data loaded · **{len(state.player_names())} players** across **{len(state.team_names())} teams**")
     st.divider()
 
@@ -186,15 +186,15 @@ if page == "🏠 Overview":
     total_xg      = sum(r.xg      for p in all_players for r in p.seasons)
 
     kpi1, kpi2, kpi3, kpi4 = st.columns(4)
-    kpi1.metric("🏟️ Teams",         len(state.team_names()))
-    kpi2.metric("👤 Players",        len(state.player_names()))
-    kpi3.metric("⚽ Goals (loaded)", total_goals)
-    kpi4.metric("📊 Total xG",      f"{total_xg:.1f}")
+    kpi1.metric("Teams",         len(state.team_names()))
+    kpi2.metric("Players",        len(state.player_names()))
+    kpi3.metric("Goals (loaded)", total_goals)
+    kpi4.metric("Total xG",      f"{total_xg:.1f}")
 
     st.divider()
 
     # ── Top scorers table ─────────────────────────────────────────────────────
-    st.markdown("### 🏆 Top Scorers")
+    st.markdown("### Top Scorers")
     try:
         top_scorers = analyzer.league_rankings(
             metric="Goals/90",
@@ -221,7 +221,7 @@ if page == "🏠 Overview":
     col_left, col_right = st.columns(2)
 
     with col_left:
-        st.markdown("### 📊 xG Leaders")
+        st.markdown("### xG Leaders")
         try:
             xg_rank = analyzer.league_rankings("xG/90", state.season_id,
                                                 min_minutes=100, top_n=8)
@@ -232,7 +232,7 @@ if page == "🏠 Overview":
             st.warning(str(e))
 
     with col_right:
-        st.markdown("### 🎯 Assists Leaders")
+        st.markdown("### Assists Leaders")
         try:
             ast_rank = analyzer.league_rankings("Assists/90", state.season_id,
                                                  min_minutes=100, top_n=8)
@@ -243,14 +243,14 @@ if page == "🏠 Overview":
             st.warning(str(e))
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PAGE: 👤 PLAYER PROFILE
-# ─────────────────────────────────────────────────────────────────────────────
-elif page == "👤 Player Profile":
+# ────────────────────────────────────────────────────────────────
+# PAGE: PLAYER PROFILE
+# ────────────────────────────────────────────────────────────────
+elif page == "Player Profile":
     analyzer = state.analyzer
     league   = state.league
 
-    st.markdown("# 👤 Player Profile")
+    st.markdown("# Player Profile")
 
     # Player selector
     player_names = state.player_names()
@@ -290,7 +290,7 @@ elif page == "👤 Player Profile":
     col_radar, col_trend = st.columns([1, 1])
 
     with col_radar:
-        st.markdown("#### 📡 Percentile Radar")
+        st.markdown("#### Percentile Radar")
         with st.spinner("Building radar…"):
             try:
                 profile = analyzer.player_percentile_profile(
@@ -307,7 +307,7 @@ elif page == "👤 Player Profile":
                 st.warning(f"Radar unavailable: {e}")
 
     with col_trend:
-        st.markdown("#### 📈 Career Trajectory")
+        st.markdown("#### Career Trajectory")
         with st.spinner("Building trend chart…"):
             try:
                 trajectory = analyzer.career_trajectory(selected_name)
@@ -315,7 +315,7 @@ elif page == "👤 Player Profile":
                     fig = factory.career(trajectory)
                     render_figure(fig)
                     if trajectory.trend_direction != "stable":
-                        arrow = "↗️" if trajectory.trend_direction == "improving" else "↘️"
+                        arrow = "Up" if trajectory.trend_direction == "improving" else "Down"
                         st.markdown(
                             f"{arrow} **Trend:** {trajectory.trend_direction.title()} "
                             f"(slope {trajectory.trend_slope:+.4f}/season) · "
@@ -328,7 +328,7 @@ elif page == "👤 Player Profile":
     st.divider()
 
     # ── Percentile table ──────────────────────────────────────────────────────
-    st.markdown("#### 📋 Percentile Breakdown")
+    st.markdown("#### Percentile Breakdown")
     with st.spinner("Computing percentiles…"):
         try:
             profile = analyzer.player_percentile_profile(
@@ -344,7 +344,7 @@ elif page == "👤 Player Profile":
     st.divider()
 
     # ── Similar players ───────────────────────────────────────────────────────
-    st.markdown("#### 🔍 Similar Playing Styles")
+    st.markdown("#### Similar Playing Styles")
     with st.spinner("Finding similar players…"):
         try:
             similar_df = analyzer.find_similar_players(
@@ -359,14 +359,14 @@ elif page == "👤 Player Profile":
             st.warning(str(e))
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PAGE: ⚔️ HEAD-TO-HEAD
-# ─────────────────────────────────────────────────────────────────────────────
-elif page == "⚔️ Head-to-Head":
+# ────────────────────────────────────────────────────────────────
+# PAGE: HEAD-TO-HEAD
+# ────────────────────────────────────────────────────────────────
+elif page == "Head-to-Head":
     analyzer     = state.analyzer
     player_names = state.player_names()
 
-    st.markdown("# ⚔️ Head-to-Head Comparison")
+    st.markdown("# Head-to-Head Comparison")
 
     if len(player_names) < 2:
         st.warning("Need at least 2 players loaded.")
@@ -399,7 +399,7 @@ elif page == "⚔️ Head-to-Head":
             st.stop()
 
     # ── Comparison radar ──────────────────────────────────────────────────────
-    st.markdown("#### 📡 Comparison Radar")
+    st.markdown("#### Comparison Radar")
     fig = factory.comparison(result)
     render_figure(fig)
     st.divider()
@@ -410,9 +410,9 @@ elif page == "⚔️ Head-to-Head":
     draws  = sum(1 for v in result.edge.values() if v == "draw")
 
     col1, col2, col3 = st.columns(3)
-    col1.metric(f"✅ {player_a_name} wins", wins_a)
-    col2.metric(f"✅ {player_b_name} wins", wins_b)
-    col3.metric("🤝 Draws", draws)
+    col1.metric(f"{player_a_name} wins", wins_a)
+    col2.metric(f"{player_b_name} wins", wins_b)
+    col3.metric("Draws", draws)
 
     overall_winner = (
         player_a_name if wins_a > wins_b
@@ -423,13 +423,13 @@ elif page == "⚔️ Head-to-Head":
     st.divider()
 
     # ── Detailed comparison table ─────────────────────────────────────────────
-    st.markdown("#### 📊 Metric-by-Metric Breakdown")
+    st.markdown("#### Metric-by-Metric Breakdown")
     comparison_table(result)
 
     st.divider()
 
     # ── Individual percentile profiles side by side ───────────────────────────
-    st.markdown("#### 📡 Individual Percentile Profiles")
+    st.markdown("#### Individual Percentile Profiles")
     col_pa, col_pb = st.columns(2)
 
     for col, name, colour in [(col_pa, player_a_name, "green"),
@@ -446,21 +446,21 @@ elif page == "⚔️ Head-to-Head":
                 st.warning(str(e))
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PAGE: 🔬 ADVANCED ANALYSIS
-# ─────────────────────────────────────────────────────────────────────────────
-elif page == "🔬 Advanced Analysis":
+# ────────────────────────────────────────────────────────────────
+# PAGE: ADVANCED ANALYSIS
+# ────────────────────────────────────────────────────────────────
+elif page == "Advanced Analysis":
     advanced     = state.advanced
     analyzer     = state.analyzer
     player_names = state.player_names()
 
-    st.markdown("# 🔬 Advanced Analysis")
+    st.markdown("# Advanced Analysis")
 
-    tab_injury, tab_cluster = st.tabs(["💉 Injury Impact", "🎯 Style Archetypes"])
+    tab_injury, tab_cluster = st.tabs(["Injury Impact", "Style Archetypes"])
 
     # ── Tab 1: Injury Impact ──────────────────────────────────────────────────
     with tab_injury:
-        st.markdown("### 💉 Injury / Absence Impact Modelling")
+        st.markdown("### Injury / Absence Impact Modelling")
         st.markdown(
             "Compares a player's per-90 metrics in the season **before** and **after** "
             "an absence-affected campaign (detected as a low-minutes season)."
@@ -473,7 +473,7 @@ elif page == "🔬 Advanced Analysis":
             help="Players with ≥ 2 seasons loaded can be analysed.",
         )
 
-        if st.button("🔍 Analyse Absence Impact", type="primary"):
+        if st.button("Analyse Absence Impact", type="primary"):
             with st.spinner("Modelling absence impact…"):
                 try:
                     result = advanced.injury_impact(selected_player)
@@ -507,7 +507,7 @@ elif page == "🔬 Advanced Analysis":
 
     # ── Tab 2: Clustering ─────────────────────────────────────────────────────
     with tab_cluster:
-        st.markdown("### 🎯 Player Style Archetypes")
+        st.markdown("### Player Style Archetypes")
         st.markdown(
             "K-Means clustering groups outfield players into style archetypes "
             "based on their per-90 metric fingerprint. "
@@ -524,7 +524,7 @@ elif page == "🔬 Advanced Analysis":
             key="cluster_highlight",
         )
 
-        if st.button("🔬 Run Clustering", type="primary"):
+        if st.button("Run Clustering", type="primary"):
             with st.spinner("Fitting archetypes…"):
                 try:
                     from src.advanced_analysis import AdvancedAnalyzer
@@ -570,14 +570,14 @@ elif page == "🔬 Advanced Analysis":
                     st.error(f"Clustering failed: {e}")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PAGE: 📋 TEAM REPORT
-# ─────────────────────────────────────────────────────────────────────────────
-elif page == "📋 Team Report":
+# ────────────────────────────────────────────────────────────────
+# PAGE: TEAM REPORT
+# ────────────────────────────────────────────────────────────────
+elif page == "Team Report":
     analyzer   = state.analyzer
     team_names = state.team_names()
 
-    st.markdown("# 📋 Team Report")
+    st.markdown("# Team Report")
 
     if not team_names:
         st.warning("No teams loaded.")
@@ -592,14 +592,14 @@ elif page == "📋 Team Report":
             st.error(str(e))
             st.stop()
 
-    # ── KPI row ───────────────────────────────────────────────────────────────
+    # ── KPI row ───────────────────────────────────────────────────────────
     st.divider()
     c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("👥 Squad size",     report.squad_size)
-    c2.metric("⚽ Goals",          report.total_goals)
-    c3.metric("🎯 Assists",        report.total_assists)
-    c4.metric("🏆 Top scorer",     report.top_scorer_name)
-    c5.metric("⭐ Top scorer goals", report.top_scorer_goals)
+    c1.metric("Squad size",     report.squad_size)
+    c2.metric("Goals",          report.total_goals)
+    c3.metric("Assists",        report.total_assists)
+    c4.metric("Top scorer",     report.top_scorer_name)
+    c5.metric("Top scorer goals", report.top_scorer_goals)
 
     st.divider()
 
@@ -607,7 +607,7 @@ elif page == "📋 Team Report":
     col_gc, col_squad = st.columns([1, 1])
 
     with col_gc:
-        st.markdown("#### 🥧 Goal Contribution Share")
+        st.markdown("#### Goal Contribution Share")
         gc_df = report.goal_contribution_df
         if not gc_df.empty:
             # Simple bar chart of top 10 contributors
@@ -619,7 +619,7 @@ elif page == "📋 Team Report":
             )
 
     with col_squad:
-        st.markdown("#### 📊 Squad Stats")
+        st.markdown("#### Squad Stats")
         squad_df = report.squad_stats_df
         if not squad_df.empty:
             display_cols = [c for c in
@@ -645,7 +645,7 @@ elif page == "📋 Team Report":
     st.divider()
 
     # ── Full goal contribution table ──────────────────────────────────────────
-    st.markdown("#### 🏅 Full Goal Contribution Table")
+    st.markdown("#### Full Goal Contribution Table")
     gc_display = report.goal_contribution_df
     if not gc_display.empty:
         st.dataframe(
@@ -658,7 +658,7 @@ elif page == "📋 Team Report":
 
     # ── Player profile deep-dive from team page ───────────────────────────────
     st.divider()
-    st.markdown("#### 🔎 Deep-dive: individual player from this squad")
+    st.markdown("#### Deep-dive: individual player from this squad")
     squad_players = sorted(
         p.name for p in state.league.get_team(selected_team, state.season_id).players
     ) if state.league.get_team(selected_team, state.season_id) else []
